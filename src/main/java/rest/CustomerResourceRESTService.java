@@ -17,8 +17,10 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import data.AddressInfoRepository;
+import data.CustomerInfoRepository;
+import model.Address;
 import model.Customer;
-import model.dto.Address;
 
 /**
  * JAX-RS Example
@@ -28,7 +30,7 @@ import model.dto.Address;
  * 
  * 
  * 
- * /home/awiegant/Dokumente/git-workspace/demo-restWS-spring-jersey-jpa2-hibernate/src/main/java/org/codingpedia/demo/rest/service
+ * Dokumente/git-workspace/demo-restWS-spring-jersey-jpa2-hibernate/src/main/java/org/codingpedia/demo/rest/service
  */
 @Path("/")
 @RequestScoped
@@ -65,6 +67,7 @@ public class CustomerResourceRESTService {
       "zipCode":"4711",
       "city":"MyTown"
     }
+    
      */
     @POST
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
@@ -147,7 +150,7 @@ public class CustomerResourceRESTService {
     http://localhost:8080/ccd/rest/customers
 
     {
-     "name":"Alex"
+     "name":"Alejhandro"
     }
      */
     @POST // it is NOT idempotent
@@ -174,7 +177,7 @@ public class CustomerResourceRESTService {
 
     {
      "id":"1",
-     "name":"Alex",
+     "name":"Alejhandro",
      "email":"alejhandro@gmx.com"
     }
      */

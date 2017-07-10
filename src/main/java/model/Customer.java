@@ -16,8 +16,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import model.dto.Address;
-
 @SuppressWarnings("serial")
 @XmlRootElement
 
