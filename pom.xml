@@ -33,8 +33,8 @@
         <version.war.plugin>2.5</version.war.plugin>
 
         <!-- maven-compiler-plugin -->
-        <maven.compiler.target>1.7</maven.compiler.target>
-        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
     </properties>
 
 
@@ -173,6 +173,29 @@
             <scope>test</scope>
         </dependency>
 
+
+            <dependency>
+                <groupId>com.wordnik</groupId>
+                <artifactId>swagger-core</artifactId>
+                <scope>compile</scope>
+                <version>1.5.1-M2</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>javax.ws.rs</groupId>
+                        <artifactId>jsr311-api</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+
+<!--
+            <dependency>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-annotations</artifactId>
+                <version>${version.swagger}</version>
+            </dependency>
+-->
+
     </dependencies>
 
     <build>
@@ -195,6 +218,50 @@
                 <artifactId>wildfly-maven-plugin</artifactId>
                 <version>${version.wildfly.maven.plugin}</version>
             </plugin>
+
+            <plugin>
+                <groupId>com.github.kongchen</groupId>
+                <artifactId>swagger-maven-plugin</artifactId>
+                <version>3.1.2</version>
+                <configuration>
+                    <apiSources>
+                        <apiSource>
+                            <springmvc>false</springmvc>
+                            <locations>java.rest</locations>
+                            <schemes>http,https</schemes>
+                            <host>www.[host]:[port]</host>
+                            <basePath>/rest</basePath>
+                            <info>
+                                <title>Swagger spec for our REST API</title>
+                                <version>v1</version>
+                                <description>This is a sample spec for our REST API</description>
+                                <termsOfService>
+                                    http://www.testcompany.com/terms-and-conditions
+                                </termsOfService>
+                                <contact>
+                                    <email>anyone(@)testcompany.com</email>
+                                    <name>Any ONe</name>
+                                    <url>http://www.testcompany.com</url>
+                                </contact>
+                                <license>
+                                    <url>http://www.testcompany.com/licenses/LICENSE-2.0.html</url>
+                                    <name>Company Licence</name>
+                                </license>
+                            </info>
+                            <swaggerDirectory>src/main/webapp/swagger-ui</swaggerDirectory>
+                        </apiSource>
+                    </apiSources>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
     </build>
 
