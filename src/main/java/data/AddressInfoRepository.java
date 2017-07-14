@@ -56,8 +56,32 @@ public class AddressInfoRepository {
         return Optional.empty();
     }
 
-    public void updateAddress(Address address, String customerId) {
+    public boolean updateAddress(Address oldAddress, Address newAddress, Customer customer) {
 
+        Optional<Address> address = findeAddress(oldAddress, customer);
+        if(address.isPresent()) {
+            address.get().setCity(newAddress.getCity());
+            address.get().setHouseNumber(newAddress.getHouseNumber());
+            address.get().setStreet(newAddress.getStreet());
+            address.get().setZipCode(newAddress.getZipcode());
+
+            return true;
+        }
+
+        return false;
+    }
+
+
+    private Optional<Address> findeAddress(Address oldAddress, Customer customer) {
+
+        List<Address> addresses = customer.getAddresses();
+        for (Address address : addresses) {
+            if (address.equals(oldAddress)) {
+                return Optional.of(oldAddress);
+            }
+        }
+
+        return Optional.empty();
     }
 
     private Optional<Address> createTestAddress(String street, String houseNumber, String zipCode, String city) {
