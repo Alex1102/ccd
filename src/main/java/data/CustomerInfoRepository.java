@@ -40,16 +40,16 @@ public class CustomerInfoRepository {
         return this.findById(customerId.toString()).get().getId();
     }
 
-    public Optional<String> updateCustomer(Customer customer) {
+    public boolean updateCustomer(Customer customer) {
 
         Optional<Customer> customerToUpdate = findById(customer.getId());
         if (customerToUpdate.isPresent()) {
             customerToUpdate.get().setName(customer.getName());
             customerToUpdate.get().setEmail(customer.getEmail());
-            return Optional.of(customerToUpdate.get().getId());
+            return true;
         }
 
-        return Optional.empty();
+        return false;
     }
 
     public Optional<Customer> findById(String id) {
