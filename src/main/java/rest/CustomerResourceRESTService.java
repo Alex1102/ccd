@@ -17,6 +17,11 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
+import com.wordnik.swagger.annotations.ApiParam;
+import com.wordnik.swagger.annotations.*;
+
 import data.AddressInfoRepository;
 import data.CustomerInfoRepository;
 import model.Address;
@@ -34,13 +39,8 @@ import model.Customer;
  */
 @Path("/")
 @RequestScoped
+@Api(value = "users", description = "Endpoint for User specific operations")
 public class CustomerResourceRESTService {
-
-
-    // /customers GET, POST
-    // /customers/{id} PUT, GET, POST
-    // /customers/{id}/orders/
-    // /customers/{id}/orders/{id}
 
 
     // ********************** Shipping Address ****************************************************************
@@ -55,26 +55,42 @@ public class CustomerResourceRESTService {
     private AddressInfoRepository addressInfoRepo;
 
 
+    @PUT // it is idempotent
+    @Path("/customers/{id}/addresses")
+    @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    public Response updateAddress(@PathParam("id") String customerId, Address oldAddress, Address newAddress) {
 
-    /*
+        // Valildate customer. If email already exists => customer invalid
 
-    Test data:
-    http://localhost:8080/ccd/rest/customers/1/addresses
+        if (oldAddress == null) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(oldAddress).build();
+        }
 
-    {
-      "street":"Hauptstr.",
-      "houseNumber":"1",
-      "zipCode":"4711",
-      "city":"MyTown"
+        if (newAddress == null) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(newAddress).build();
+        }
+
+        Optional<Customer> customer = customerInfoRepo.findById(customerId);
+        if (!customer.isPresent()) {
+            return Response.status(Response.Status.NOT_FOUND).entity(customerId).build();
+        }
+
+        boolean successful = addressInfoRepo.updateAddress(oldAddress, newAddress, customer.get());
+        if (successful) {
+            return Response.status(Response.Status.OK).entity(customerId).build();
+        }
+        return Response.status(Response.Status.BAD_REQUEST).entity(customerId).build();
     }
-    
-     */
+
     @POST
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     @Path("/customers/{id}/addresses")
     public Response createAddress(@PathParam("id") String customerId, Address address) {
         // Valildate customer. If email already exists => customer invalid
+
+        // Ist vielleicht schon zu viel Logik die ins Backend gehört ???
 
         Optional<Customer> customer = customerInfoRepo.findById(customerId);
         if (!customer.isPresent()) {
@@ -128,12 +144,17 @@ public class CustomerResourceRESTService {
     }
 
 
-    // @GET
     // @Path("/{id:[1-9][0-9]*}")
     @GET
     @Path("/customers/{id}")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public Response getCustomerById(@PathParam("id") String id) {
+    @ApiOperation(value = "Returns customers details", notes = "Returns customer details.", response = Customer.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successful retrieval of customer entity", response = Customer.class),
+            @ApiResponse(code = 404, message = "Customer with given id does not exist"),
+            @ApiResponse(code = 500, message = "Internal server error") }
+        )
+    public Response getCustomerById(@ApiParam(value = "id") @PathParam("id") String id) {
 
         Optional<Customer> customer = customerInfoRepo.findById(String.valueOf(id));
         if (!customer.isPresent()) {
@@ -143,16 +164,6 @@ public class CustomerResourceRESTService {
         return Response.status(Response.Status.OK).entity(customer.get()).build();
     }
 
-
-    /*
-
-    Test data:
-    http://localhost:8080/ccd/rest/customers
-
-    {
-     "name":"Alejhandro"
-    }
-     */
     @POST // it is NOT idempotent
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
@@ -160,45 +171,28 @@ public class CustomerResourceRESTService {
     public Response createCustomer(Customer customer) {
 
         // Valildate customer. If email already exists => customer invalid
-
-        // Validierung auf Existenz vom Kunden mit den gleichen Daten wie
-        // Stammdaten, Addresse, Bankdaten im Process u. nicht im Leistungssystem wie diesem.
-
         String customerId = customerInfoRepo.createCustomer(customer);
-
         return Response.status(Response.Status.CREATED).entity(customerId).build();
     }
 
-
-    /*
-
-    Test data:
-    http://localhost:8080/ccd/rest/customers/1
-
-    {
-     "id":"1",
-     "name":"Alejhandro",
-     "email":"alejhandro@gmx.com"
-    }
-     */
     @PUT // it is idempotent
     @Path("/customers/{id}")
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public Response updateCustomer(@PathParam("id") String id, Customer customer) {
+    public Response updateCustomer(@PathParam("id") String customerId, Customer customer) {
 
         // Valildate customer. If email already exists => customer invalid
 
-        if (!customer.getId().equals(id)) {
-            return Response.status(Response.Status.BAD_REQUEST).entity(id).build();
+        if (!customer.getId().equals(customerId)) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(customerId).build();
         }
 
-        Optional<String> customerId = customerInfoRepo.updateCustomer(customer);
-        if (customerId.isPresent()) {
+        boolean successful = customerInfoRepo.updateCustomer(customer);
+        if (successful) {
             return Response.status(Response.Status.OK).entity(customerId).build();
         }
 
-       return Response.status(Response.Status.BAD_REQUEST).entity(customerId).build();
+        return Response.status(Response.Status.BAD_REQUEST).entity(customerId).build();
     }
 
 }
