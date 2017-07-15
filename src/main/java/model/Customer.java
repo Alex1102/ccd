@@ -4,11 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -16,12 +14,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.wordnik.swagger.annotations.ApiModel;
+import com.wordnik.swagger.annotations.ApiModelProperty;
+import javax.persistence.Entity;
+
+@ApiModel
 @SuppressWarnings("serial")
 @XmlRootElement
 
-//@Entity : deactivated, because follow exception
-//  Hibernate Caused by: org.hibernate.MappingException: Could not determine type for: java.util.List
-//  Fix my befor activating again
+// @Entity : deactivated, because follow exception
+// Hibernate Caused by: org.hibernate.MappingException: Could not determine type for: java.util.List
+// Fix my befor activating again
 public class Customer implements Serializable {
 
 
@@ -52,6 +55,7 @@ public class Customer implements Serializable {
         this.id = id;
     }
 
+    @ApiModelProperty(position = 1, required = true, value = "name containing only lowercase letters")
     public String getName() {
         return name;
     }
@@ -60,6 +64,7 @@ public class Customer implements Serializable {
         this.name = name;
     }
 
+    @ApiModelProperty(position = 2, required = true, value = "Must not be null")
     public String getEmail() {
         return email;
     }

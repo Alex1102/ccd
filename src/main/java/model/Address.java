@@ -3,21 +3,24 @@ package model;
 
 import java.io.Serializable;
 
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.persistence.Entity;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.wordnik.swagger.annotations.ApiModel;
+import com.wordnik.swagger.annotations.ApiModelProperty;
 
+@ApiModel
 @SuppressWarnings("serial")
 @XmlRootElement
 
-//@Entity : deactivated, because follow exception
-//Hibernate Caused by: org.hibernate.MappingException: Could not determine type for: java.util.List
-//Fix my befor activating again
+// @Entity : deactivated, because follow exception
+// Hibernate Caused by: org.hibernate.MappingException: Could not determine type for: java.util.List
+// Fix my befor activating again
 public class Address implements Serializable {
 
 
@@ -68,6 +71,7 @@ public class Address implements Serializable {
     /**
      * @return the street (without house number)
      */
+    @ApiModelProperty(position = 1, required = true, value = "Street name")
     public String getStreet() {
         return street;
     }
@@ -75,6 +79,7 @@ public class Address implements Serializable {
     /**
      * @return the house number
      */
+    @ApiModelProperty(position = 2, required = true, value = "hous number containing only numbers")
     public String getHouseNumber() {
         return houseNumber;
     }
@@ -82,6 +87,7 @@ public class Address implements Serializable {
     /**
      * @return the zip code
      */
+    @ApiModelProperty(position = 3, required = true, value = "name containing only numbers")
     public String getZipcode() {
         return zipCode;
     }
@@ -89,6 +95,7 @@ public class Address implements Serializable {
     /**
      * @return the city
      */
+    @ApiModelProperty(position = 4, required = true, value = "name containing only letters")
     public String getCity() {
         return city;
     }
