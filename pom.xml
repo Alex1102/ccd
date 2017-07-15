@@ -174,18 +174,18 @@
         </dependency>
 
 
-            <dependency>
-                <groupId>com.wordnik</groupId>
-                <artifactId>swagger-core</artifactId>
-                <scope>compile</scope>
-                <version>1.5.1-M2</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>javax.ws.rs</groupId>
-                        <artifactId>jsr311-api</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
+        <dependency>
+          <groupId>com.wordnik</groupId>
+          <artifactId>swagger-core</artifactId>
+          <scope>compile</scope>
+          <version>1.5.1-M2</version>
+            <exclusions>
+              <exclusion>
+                <groupId>javax.ws.rs</groupId>
+                <artifactId>jsr311-api</artifactId>
+             </exclusion>
+           </exclusions>
+        </dependency>
 
 
 <!--
@@ -222,12 +222,12 @@
             <plugin>
                 <groupId>com.github.kongchen</groupId>
                 <artifactId>swagger-maven-plugin</artifactId>
-                <version>3.1.2</version>
+                <version>3.0.1</version>   <!-- <version>3.0.2</version>, <version>3.0.1</version>, <version>3.1.1</version> -->
                 <configuration>
                     <apiSources>
                         <apiSource>
                             <springmvc>false</springmvc>
-                            <locations>java.rest</locations>
+                            <locations>rest.resource</locations>
                             <schemes>http,https</schemes>
                             <host>www.[host]:[port]</host>
                             <basePath>/rest</basePath>
@@ -248,7 +248,7 @@
                                     <name>Company Licence</name>
                                 </license>
                             </info>
-                            <swaggerDirectory>src/main/webapp/swagger-ui</swaggerDirectory>
+                            <swaggerDirectory>src/main/webapp/</swaggerDirectory>
                         </apiSource>
                     </apiSources>
                 </configuration>
