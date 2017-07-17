@@ -7,12 +7,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.persistence.Entity;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.wordnik.swagger.annotations.ApiModel;
-import com.wordnik.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.*;
+
+
 
 @ApiModel
 @SuppressWarnings("serial")

@@ -174,28 +174,33 @@
         </dependency>
 
 
-        <dependency>
-          <groupId>com.wordnik</groupId>
-          <artifactId>swagger-core</artifactId>
-          <scope>compile</scope>
-          <version>1.5.1-M2</version>
-            <exclusions>
-              <exclusion>
-                <groupId>javax.ws.rs</groupId>
-                <artifactId>jsr311-api</artifactId>
-             </exclusion>
-           </exclusions>
-        </dependency>
-
-
-<!--
-            <dependency>
-                <groupId>io.swagger</groupId>
-                <artifactId>swagger-annotations</artifactId>
-                <version>${version.swagger}</version>
-            </dependency>
+		<!-- https://mvnrepository.com/artifact/io.swagger/swagger-annotations
+		<dependency>
+		    <groupId>io.swagger</groupId>
+		    <artifactId>swagger-annotations</artifactId>
+		    <version>1.5.15</version>
+		</dependency>
 -->
 
+		<!-- https://mvnrepository.com/artifact/io.swagger/swagger-core -->
+<!-- 		<dependency>
+		    <groupId>io.swagger</groupId>
+		    <artifactId>swagger-core</artifactId>
+		    <version>1.5.0</version>
+		</dependency> -->
+
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-core</artifactId>
+            <scope>compile</scope>
+            <version>1.5.3</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.ws.rs</groupId>
+                    <artifactId>jsr311-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
     </dependencies>
 
     <build>
@@ -203,26 +208,11 @@
             given to the generated war, and hence the context root) -->
         <finalName>${project.artifactId}</finalName>
         <plugins>
-            <plugin>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>${version.war.plugin}</version>
-                <configuration>
-                    <!-- Java EE 7 doesn't require web.xml, Maven needs to catch up! -->
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
-                </configuration>
-            </plugin>
-            <!-- The WildFly plugin deploys your war to a local WildFly container -->
-            <!-- To use, run: mvn package wildfly:deploy -->
-            <plugin>
-                <groupId>org.wildfly.plugins</groupId>
-                <artifactId>wildfly-maven-plugin</artifactId>
-                <version>${version.wildfly.maven.plugin}</version>
-            </plugin>
 
             <plugin>
                 <groupId>com.github.kongchen</groupId>
                 <artifactId>swagger-maven-plugin</artifactId>
-                <version>3.0.1</version>   <!-- <version>3.0.2</version>, <version>3.0.1</version>, <version>3.1.1</version> -->
+                <version>3.1.1</version>
                 <configuration>
                     <apiSources>
                         <apiSource>
@@ -260,6 +250,22 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+        
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>${version.war.plugin}</version>
+                <configuration>
+                    <!-- Java EE 7 doesn't require web.xml, Maven needs to catch up! -->
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+            <!-- The WildFly plugin deploys your war to a local WildFly container -->
+            <!-- To use, run: mvn package wildfly:deploy -->
+            <plugin>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <version>${version.wildfly.maven.plugin}</version>
             </plugin>
 
         </plugins>

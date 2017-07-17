@@ -1,0 +1,259 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "This is a sample spec for our REST API",
+    "version" : "v1",
+    "title" : "Swagger spec for our REST API",
+    "termsOfService" : "http://www.testcompany.com/terms-and-conditions",
+    "contact" : {
+      "name" : "Any ONe",
+      "url" : "http://www.testcompany.com",
+      "email" : "anyone(@)testcompany.com"
+    },
+    "license" : {
+      "name" : "Company Licence",
+      "url" : "http://www.testcompany.com/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host" : "www.[host]:[port]",
+  "basePath" : "/rest",
+  "schemes" : [ "http", "https" ],
+  "paths" : {
+    "/customers" : {
+      "get" : {
+        "summary" : "Finds all customers",
+        "description" : "Some customers",
+        "operationId" : "allCustomers",
+        "produces" : [ "application/json", "application/xml" ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Customer"
+              }
+            }
+          },
+          "401" : {
+            "description" : "No customres found"
+          }
+        }
+      }
+    },
+    "/customers/{id}" : {
+      "get" : {
+        "summary" : "Returns customers details",
+        "description" : "Returns customer details.",
+        "operationId" : "getCustomerById",
+        "produces" : [ "application/json", "application/xml" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "id",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful retrieval of customer entity",
+            "schema" : {
+              "$ref" : "#/definitions/Customer"
+            }
+          },
+          "404" : {
+            "description" : "Customer with given id does not exist"
+          },
+          "500" : {
+            "description" : "Internal server error"
+          }
+        }
+      },
+      "put" : {
+        "summary" : "Update an existing customer",
+        "description" : "",
+        "operationId" : "updateCustomer",
+        "consumes" : [ "application/json", "application/xml" ],
+        "produces" : [ "application/json", "application/xml" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "400" : {
+            "description" : "Invalid customer ID supplied"
+          },
+          "404" : {
+            "description" : "Customer not found"
+          },
+          "405" : {
+            "description" : "Validation exception"
+          }
+        }
+      }
+    },
+    "/customers/{id}/addresses" : {
+      "post" : {
+        "summary" : "Address creation for an existing customer",
+        "description" : "Clients must pass a UUID (version 3-5) as unique identifier for a certain submission request. This enables clients to submit the same request repeatedly without side effects. The requested customer communication will be triggered at most once. While the random UUID (v4) is very easy to generate in most programming languages it burdens the client to remember it at least until the request has been submitted successfully. The namespace+hash based UUIDs (v3, v5) require more thought in the first place which may pay off through the benefit of a reproducible UUID solely based on existing data in the client's domain. The first successful submission will be answered with status 202 and processed asynchronously. Any further PUT to the same ID will either yield 204, if the request is equal to one we already know, or 409, if the request data differs from a previous one using the same ID.",
+        "operationId" : "createAddress",
+        "consumes" : [ "application/json", "application/xml" ],
+        "produces" : [ "application/json", "application/xml" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "UUID v3-5 according to RFC4122, canonical form, 36 characters, lower case",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "customerId",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "405" : {
+            "description" : "Invalid input"
+          }
+        }
+      },
+      "put" : {
+        "summary" : "Update an existing address",
+        "description" : "",
+        "operationId" : "updateAddress",
+        "consumes" : [ "application/json", "application/xml" ],
+        "produces" : [ "application/json", "application/xml" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          "400" : {
+            "description" : "Given address is null"
+          },
+          "404" : {
+            "description" : "Address not found not found"
+          },
+          "405" : {
+            "description" : "Validation exception"
+          }
+        }
+      }
+    },
+    "/customers/{id}/shipping-address" : {
+      "get" : {
+        "summary" : "Find address by customer ID",
+        "description" : "Returns a address or nonintegers will simulate API error conditions",
+        "operationId" : "getAddressesByCustomerId",
+        "produces" : [ "application/json", "application/xml" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/Address"
+            }
+          },
+          "400" : {
+            "description" : "Invalid customer ID supplied"
+          },
+          "404" : {
+            "description" : "Addres not found"
+          }
+        }
+      }
+    },
+    "/{id}/customers" : {
+      "post" : {
+        "summary" : "Customer creation request",
+        "description" : "Clients must pass a UUID (version 3-5) as unique identifier for a certain submission request. This enables clients to submit the same request repeatedly without side effects. The requested customer communication will be triggered at most once. While the random UUID (v4) is very easy to generate in most programming languages it burdens the client to remember it at least until the request has been submitted successfully. The namespace+hash based UUIDs (v3, v5) require more thought in the first place which may pay off through the benefit of a reproducible UUID solely based on existing data in the client's domain. The first successful submission will be answered with status 202 and processed asynchronously. Any further PUT to the same ID will either yield 204, if the request is equal to one we already know, or 409, if the request data differs from a previous one using the same ID.",
+        "operationId" : "createCustomer",
+        "consumes" : [ "application/json", "application/xml" ],
+        "produces" : [ "application/json", "application/xml" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "UUID v3-5 according to RFC4122, canonical form, 36 characters, lower case",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "405" : {
+            "description" : "Invalid input"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "Address" : {
+      "type" : "object",
+      "required" : [ "city", "houseNumber", "street", "zipcode" ],
+      "properties" : {
+        "street" : {
+          "type" : "string",
+          "position" : 1,
+          "description" : "Street name"
+        },
+        "houseNumber" : {
+          "type" : "string",
+          "position" : 2,
+          "description" : "hous number containing only numbers"
+        },
+        "zipcode" : {
+          "type" : "string",
+          "position" : 3,
+          "description" : "name containing only numbers"
+        },
+        "city" : {
+          "type" : "string",
+          "position" : 4,
+          "description" : "name containing only letters"
+        }
+      }
+    },
+    "Customer" : {
+      "type" : "object",
+      "required" : [ "addresses", "email", "name" ],
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        },
+        "addresses" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Address"
+          }
+        },
+        "name" : {
+          "type" : "string",
+          "position" : 1,
+          "description" : "name containing only lowercase letters",
+          "minLength" : 1,
+          "maxLength" : 25,
+          "pattern" : "[^0-9]*"
+        },
+        "email" : {
+          "type" : "string",
+          "position" : 2,
+          "description" : "Must not be null"
+        }
+      }
+    }
+  }
+}

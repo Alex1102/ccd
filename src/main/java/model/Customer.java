@@ -13,10 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
-
-import com.wordnik.swagger.annotations.ApiModel;
-import com.wordnik.swagger.annotations.ApiModelProperty;
-import javax.persistence.Entity;
+import io.swagger.annotations.*;
 
 @ApiModel
 @SuppressWarnings("serial")
