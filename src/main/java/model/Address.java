@@ -160,7 +160,8 @@ public class Address implements Serializable {
     @Override
     public String toString() {
         final StringBuilder s = new StringBuilder();
-        s.append(street).append(' ').append(houseNumber).append(", ").append(city).append(zipCode).append(' ');
+        s.append("Address { street=").append(street).append(", houseNumber=").append(houseNumber).append(", ").append(", city=").append(city)
+                .append(", zipCode=").append(zipCode).append(" }");
         return s.toString();
     }
 

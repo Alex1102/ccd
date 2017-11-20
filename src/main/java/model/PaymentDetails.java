@@ -8,8 +8,6 @@ import java.util.Optional;
 /**
  * Holder for customer's payment data. This class is immutable. Use {@link Builder} to create.
  *
- * @author <a href="mailto:carsten.helmstaedter@1und1.de">Carsten Helmstaedter</a>
- *
  */
 public final class PaymentDetails {
     /**

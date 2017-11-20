@@ -1,6 +1,8 @@
-package validator;
+package ccd.rest.validation;
 
 import java.util.regex.Pattern;
+
+import ccd.exception.InputValidationException;
 
 public final class Validator {
 
@@ -26,39 +28,39 @@ public final class Validator {
 
     public static void validateUUID(String uuId) {
         if (uuId == null) {
-            throw new RuntimeException("uuId must not be null");
+            throw new InputValidationException("uuId must not be null");
         }
 
         if (!UUID_PATTERN.matcher(uuId).matches()) {
-            throw new RuntimeException("id pattern does not match the canonical representation of a UUIDv{3-5}");
+            throw new InputValidationException("id pattern does not match the canonical representation of a UUIDv{3-5}");
         }
     }
 
-    public static boolean hasValidUUID(String uuId) {
-        try{
-            validateUUID(uuId);
-        } catch (RuntimeException e) {
-            return false;
-        }
-        return true;
-    }
+//    public static boolean hasValidUUID(String uuId) {
+//        try{
+//            validateUUID(uuId);
+//        } catch (RuntimeException e) {
+//            return false;
+//        }
+//        return true;
+//    }
 
     public static void validateEmail(String email) {
         if (email == null) {
-            throw new RuntimeException("uuId must not be null");
+            throw new InputValidationException("uuId must not be null");
         }
 
         if (!EMAIL_PATTERN.matcher(email).matches()) {
-            throw new RuntimeException("Email does not match to email pattern");
+            throw new InputValidationException("Email does not match to email pattern");
         }
     }
 
-    public static boolean hasValidEmail(String email) {
-        try{
-            validateEmail(email);
-        } catch (RuntimeException e) {
-            return false;
-        }
-        return true;
-    }
+//    public static boolean hasValidEmail(String email) {
+//        try{
+//            validateEmail(email);
+//        } catch (RuntimeException e) {
+//            return false;
+//        }
+//        return true;
+//    }
 }

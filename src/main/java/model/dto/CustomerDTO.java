@@ -24,7 +24,6 @@ public class CustomerDTO implements Serializable {
      * reference to a customer from outside the CCD system. It is equivalent to
      * the KUNDE_ID in database SPAM. For more details concerning customer
      * numbers, see
-     * http://wiki.intranet.1and1.com/bin/view/CRMBackend/CCDJEEMiddleware
      * #Prim_rschl_ssel_von_Kunden
      */
     private String intCustomerNumber;
@@ -71,7 +70,6 @@ public class CustomerDTO implements Serializable {
      * not have a standard payment details, but may have additional payment
      * details. For more informations about payment methods in general and
      * payment details, see out wiki documentation at
-     * http://wiki.intranet.1and1.com/bin/view/CRMBackend/CCDBasicInformation#
      * Zahlungsarten_und_Bankverbindung
      *
      * @see de.einsundeins.crm.ccd.service.constants.payment.PaymentSort

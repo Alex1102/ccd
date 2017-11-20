@@ -1,15 +1,17 @@
-package data;
+package ccd.repo;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 import model.Address;
 import model.Customer;
 
+@ApplicationScoped
 public class AddressInfoRepository {
 
 
@@ -36,7 +38,10 @@ public class AddressInfoRepository {
         String city = "MyTown";
 
         Optional<Address> address = createTestAddress(street, houseNumber, zipCode, city);
-        address.ifPresent(addresses::add);
+//        address.ifPresent(addresses.add);
+        if (address.isPresent()) {
+            addresses.add(address.get());
+        }
     }
 
     public List<Address> findByCustomer(Customer customer) {

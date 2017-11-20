@@ -39,8 +39,8 @@ public class Customer implements Serializable {
     @Email
     private String email;
 
-    // Can be Null at customer initialization
-    @NotNull
+    // Can be Null or Empty at customer initialization
+//    @NotNull
     private List<Address> addresses = new ArrayList<>();
 
 
@@ -50,6 +50,10 @@ public class Customer implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public boolean hasId(String id) {
+        return this.id == id;
     }
 
     @ApiModelProperty(position = 1, required = true, value = "name containing only lowercase letters")
@@ -83,9 +87,21 @@ public class Customer implements Serializable {
     }
 
 
+//    @Override
+//    public String toString() {
+//        final StringBuilder s = new StringBuilder();
+//        s.append("Address [ street= ").append(street).append(' ').append("houseNumber = ").append(houseNumber).append(", ").append("city = ").append(city)
+//                .append("zipCode = ").append(zipCode).append(']');
+//        return s.toString();
+//    }
+
+
     @Override
     public String toString() {
-        return "Customer [id=" + id + ", name=" + name + ", email=" + email + ", addresses=" + addresses + "]";
+        final StringBuilder s = new StringBuilder();
+        s.append("Customer { id=").append(id).append(", name=").append(name).append(", email=").append(email).append(", addresses=").append(addresses)
+                .append(" }");
+        return s.toString();
     }
 
     @Override

@@ -1,4 +1,4 @@
-package data;
+package ccd.repo;
 
 
 import java.util.ArrayList;
@@ -9,6 +9,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
+import ccd.exception.CustomerNotFoundException;
 import model.Customer;
 
 @ApplicationScoped
@@ -30,29 +31,34 @@ public class CustomerInfoRepository {
     public CustomerInfoRepository() {
         customers.add(createTestCustomer(generateCustomerId(), "Alex, Krause", "alex@gmx.com"));
         customers.add(createTestCustomer(generateCustomerId(), "Anna, Krause", "anna@web.com"));
+//        customers.add(createTestCustomer(generateCustomerId(), "Andreas, Krause", "a.krause@google.com"));
     }
 
     public String createCustomer(Customer customer) {
+ 
+        String customerId = generateCustomerId();
 
-        Customer c = createTestCustomer(generateCustomerId(), "Andreas, Krause", "a.krause@google.com");
+        Customer c = createTestCustomer(customerId, customer.getName(), customer.getEmail());
         this.customers.add(c);
 
-        return this.findById(customerId.toString()).get().getId();
+        return findCustomerById(customerId).get().getId();
     }
 
     public boolean updateCustomer(Customer customer) {
 
-        Optional<Customer> customerToUpdate = findById(customer.getId());
+        Optional<Customer> customerToUpdate = findCustomerById(customer.getId());
         if (customerToUpdate.isPresent()) {
             customerToUpdate.get().setName(customer.getName());
             customerToUpdate.get().setEmail(customer.getEmail());
             return true;
+        } else {
+            new CustomerNotFoundException();
         }
 
         return false;
     }
 
-    public Optional<Customer> findById(String id) {
+    public Optional<Customer> findCustomerById(String id) {
 
         Optional<Customer> result = Optional.empty();
 

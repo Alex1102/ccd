@@ -17,8 +17,6 @@ import java.util.Set;
  * paypal accounts exist the fields payPalEmail and payPalRef. Fields which are
  * not needed for a payment type usually stay null. For more information about
  * payment types and payment details, see
- * http://wiki.intranet.1and1.com/bin/view
- * /CRMBackend/CCDBasicInformation#Zahlungsarten_und_Bankverbindung
  */
 
 //@XmlRootElement
