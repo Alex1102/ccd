@@ -1,4 +1,4 @@
-package ccd.rest;
+package ccd.rest.resource;
 
 import static ccd.rest.validation.Validator.validateUUID;
 

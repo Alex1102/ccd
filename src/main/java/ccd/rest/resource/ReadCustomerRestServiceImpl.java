@@ -1,4 +1,4 @@
-package ccd.rest;
+package ccd.rest.resource;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,4 +1,4 @@
-package rest.resource;
+package ccd.rest.resource;
 
 //import static validator.Validator.hasValidUUID;
 
