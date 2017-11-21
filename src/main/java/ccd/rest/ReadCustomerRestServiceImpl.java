@@ -42,7 +42,7 @@ public class ReadCustomerRestServiceImpl implements ReadCustomerRestService {
 
     // ********************** Customer ****************************************************************
 
-
+    @Override
     public Response allCustomers() 
     {
 //      boolean ok = Authorization.checkReadPermission(securityContext, requestEntity.getPrincipa());
@@ -60,6 +60,7 @@ public class ReadCustomerRestServiceImpl implements ReadCustomerRestService {
     }
 
 
+    @Override
     public Response getCustomerById(
             @ApiParam(value = "id") 
             @PathParam("id") String customerId) 

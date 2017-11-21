@@ -45,6 +45,7 @@ public class ModifyCustomerRestServiceImpl implements ModifyCustomerRestService 
 
     // ********************** Customer ****************************************************************
 
+    @Override
     public Response createCustomer(
             @ApiParam(value = "UUID v3-5 according to RFC4122, canonical form, 36 characters, lower case") @PathParam("id") String submissionId,
             Customer customer, 
@@ -87,6 +88,7 @@ public class ModifyCustomerRestServiceImpl implements ModifyCustomerRestService 
     }
 
 
+    @Override
     public Response updateCustomer(
             @PathParam("id") String customerId, // Warum steckt man die customerId nicht in den Customer-Objekt?
             Customer customer) {
@@ -125,6 +127,7 @@ public class ModifyCustomerRestServiceImpl implements ModifyCustomerRestService 
     // ********************** Shipping Address ****************************************************************
 
 
+    @Override
     public Response createAddress(
             @ApiParam(value = "UUID v3-5 according to RFC4122, canonical form, 36 characters, lower case") @PathParam("submissionId") String submissionId,
             @PathParam("id") String customerId, Address address) {
@@ -165,6 +168,7 @@ public class ModifyCustomerRestServiceImpl implements ModifyCustomerRestService 
     }
 
 
+    @Override
     public Response updateAddress(@PathParam("id") String customerId, Address oldAddress, Address newAddress) {
 
         // Should be validate with Validation Api
