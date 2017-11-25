@@ -34,7 +34,6 @@ public class PaymentDetailsDTO implements Serializable {
      * The payment dedication ID. These values are described in the class
      * PaymentDedicationConstants.
      *
-     * @see de.einsundeins.crm.ccd.service.constants.payment.PaymentDedication
      */
     private Integer paymentDedicationId;
     /**
@@ -42,7 +41,6 @@ public class PaymentDetailsDTO implements Serializable {
      * transfer this payment details must be used for. The values are described
      * in the class PaymentTypeConstants.
      *
-     * @see de.einsundeins.crm.ccd.service.constants.payment.CcdPaymentType
      */
     private Integer paymentTypeId;
     /**
@@ -83,7 +81,6 @@ public class PaymentDetailsDTO implements Serializable {
      * details with payment types CREDITCARD or SWITCHCARD. The values used here
      * are described in the class CreditcardConstants.
      *
-     * @see de.einsundeins.crm.ccd.service.constants.payment.CreditcardType
      */
     private String creditCardType;
 
@@ -134,8 +131,6 @@ public class PaymentDetailsDTO implements Serializable {
      * The globals payment type of this payment details. It show which type of
      * debit transfer this payment details must be used for. The values are
      * described in the class PaymentTypeConstants from Globals2.
-     *
-     * @see de.einsundeins.crm.ccd.service.constants.payment.CcdPaymentType
      */
     private Integer globalsPaymentTypeId;
 
@@ -148,7 +143,6 @@ public class PaymentDetailsDTO implements Serializable {
      * The status of the paymentDetails. The IDs are described in the class
      * PaymentDetailsValidityStatusConstants.
      *
-     * @see de.einsundeins.crm.ccd.service.constants.payment.PaymentDetailsValidityStatus
      */
     private Integer paymentDetailsValidityStatusId;
 
@@ -186,7 +180,6 @@ public class PaymentDetailsDTO implements Serializable {
      *   <li>normal.</li>
      * </ol>
      *
-     *  see {@link de.einsundeins.crm.ccd.service.constants.payment.PaymentDetailsValidityRemainingPeriod}
      */
     private Integer paymentDetailsValidityRemainingPeriodId;
     /**
