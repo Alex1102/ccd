@@ -22,8 +22,7 @@ import model.Customer;
 
 /**
  * Use this class to read only some customer data like address, customer it self and so one
- * 
- * @author awiegant
+ *
  */
 @Path("/")
 @Api( value = "/",
@@ -71,15 +70,15 @@ public interface ReadCustomerRestService {
     @GET
     @Path("/customers/{id}/address")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    @ApiOperation(value = "Find address by customer ID", 
-        notes = "Returns a address or nonintegers will simulate API error conditions", 
+    @ApiOperation(value = "Find address by customer ID",
+        notes = "Returns a address or nonintegers will simulate API error conditions",
         response = Address.class)
-    @ApiResponses(value = { 
+    @ApiResponses(value = {
 //            @ApiResponse(code = 404, message = "customer with given ID not found"),
 //            @ApiResponse(code = 404, message = "address not found"),
             @ApiResponse(code = 200, message = "successful retrieval customer shipping addresses", response = String.class),
             @ApiResponse(code = 403, message = "operation not permitted"),
-            @ApiResponse(code = 404, message = "no customer or addresses matching given identifier")} // Wie sieht die richtige Lösung! Hier können beide Ids falsch sein Customer 
+            @ApiResponse(code = 404, message = "no customer or addresses matching given identifier")} // Wie sieht die richtige Lösung! Hier können beide Ids falsch sein Customer
     )
     public Response getAddressesByCustomerId(
             @NotNull @NotEmpty @PathParam("id") String customerId);
