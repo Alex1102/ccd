@@ -22,8 +22,7 @@ import model.Customer;
 
 /**
  * Use this class to read only some customer data like address, customer it self and so one
- * 
- * @author awiegant
+ *
  */
 @Path("/")
 @RequestScoped
