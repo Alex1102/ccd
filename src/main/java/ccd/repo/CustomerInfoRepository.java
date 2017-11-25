@@ -31,7 +31,7 @@ public class CustomerInfoRepository {
     public CustomerInfoRepository() {
         customers.add(createTestCustomer(generateCustomerId(), "Alex, Krause", "alex@gmx.com"));
         customers.add(createTestCustomer(generateCustomerId(), "Anna, Krause", "anna@web.com"));
-//        customers.add(createTestCustomer(generateCustomerId(), "Andreas, Krause", "a.krause@google.com"));
+        customers.add(createTestCustomer(generateCustomerId(), "Andreas, Krause", "a.krause@google.com"));
     }
 
     public String createCustomer(Customer customer) {
