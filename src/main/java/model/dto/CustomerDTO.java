@@ -39,7 +39,6 @@ public class CustomerDTO implements Serializable {
      * The ID of the market / mandator the customer belongs to. These IDs are
      * described in the class MarketConstants.
      *
-     * @see de.einsundeins.crm.ccd.service.constants.MarketConstants
      */
     @NotNull
     private Integer marketId;
@@ -48,7 +47,6 @@ public class CustomerDTO implements Serializable {
      * and corporate customers. The IDs are descriped in the class
      * CustomerTypeConstants.
      *
-     * @see de.einsundeins.crm.ccd.service.constants.customer.CustomerType
      */
     @NotNull
     private Integer customerTypeId;
@@ -58,7 +56,6 @@ public class CustomerDTO implements Serializable {
      * communication channels Mail and Letter are supported. The IDs are
      * descriped in the class DispatchTypeConstants.
      *
-     * @see de.einsundeins.crm.ccd.service.constants.customer.DispatchType
      */
     @NotNull
     private Integer dispatchTypeId;
@@ -72,7 +69,6 @@ public class CustomerDTO implements Serializable {
      * payment details, see out wiki documentation at
      * Zahlungsarten_und_Bankverbindung
      *
-     * @see de.einsundeins.crm.ccd.service.constants.payment.PaymentSort
      * @deprecated the paymentSortId will be replaced by globalsPaymentTypeId in the future.
      */
     @Deprecated
@@ -86,7 +82,6 @@ public class CustomerDTO implements Serializable {
      * The status of the customer. The IDs are described in the class
      * CustomerValidityStatusConstants.
      *
-     * @see de.einsundeins.crm.ccd.service.constants.customer.CustomerValidityStatus
      */
     private Integer customerValidityStatusId;
     /**
